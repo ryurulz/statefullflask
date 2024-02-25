@@ -1,9 +1,10 @@
-FROM python:3.7
+from flask import Flask
 
-RUN mkdir /app
-COPY . /app/
-WORKDIR /app
-RUN pip install -r requirements.txt
+app = Flask(__name__)
 
-EXPOSE 5000
-CMD ["python", "/app/app.py"]
+@app.route('/')
+def hello_world():
+    return 'Hello, Clockhash!'
+
+if __name__ == '__main__':
+    app.run(debug=True, host='0.0.0.0')
