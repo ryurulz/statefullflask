@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: ryurulzapp
-        image: riyad369.azurecr.io/ryurulzapp
+        image: riyaddocker/ryurulzapp
         ports:
         - containerPort: 5000
           name: ryurulzst
