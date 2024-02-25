@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ryurulzapp
+  labels:
+    app: ryurulzapp
+spec:
+  ports:
+  - port: 5000
+    name: ryurulzapp
+  clusterIP: None
+  selector:
+    app: ryurulzapp
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: ryurulzapp
+spec:
+  serviceName: "ryurulzapp"
+  replicas: 2
+  selector:
+    matchLabels:
+      app: ryurulzapp
+  template:
+    metadata:
+      labels:
+        app: ryurulzapp
+    spec:
+      containers:
+      - name: ryurulzapp
+        image: riyad369.azurecr.io/ryurulzapp
+        ports:
+        - containerPort: 5000
+          name: ryurulzapp
+        volumeMounts:
+        - name: www
+          mountPath: /app
+  volumeClaimTemplates:
+  - metadata:
+      name: www
+    spec:
+      accessModes: 
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 1Gi
